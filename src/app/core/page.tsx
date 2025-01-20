@@ -3,9 +3,11 @@ import React from 'react';
 import TextField from '@/components/TextField';
 import Dropdown from '@/components/Dropdown';
 import Button from '@/components/Button';
+import Modal from '@/components/Modal';
 
 const Page = () => {
   const [dropdownValue, setDropdownValue] = React.useState('option1');
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   return (
     <>
@@ -29,6 +31,20 @@ const Page = () => {
         <Button loading>Click me</Button>
         <Button disabled>Click me</Button>
       </div>
+
+      <h1 className="text-2xl font-bold">Modal</h1>
+      <Button
+        onClick={() => {
+          setIsModalOpen(true);
+        }}
+      >
+        Modal
+      </Button>
+
+      <Modal isOpen={isModalOpen} onCancel={() => setIsModalOpen(false)}>
+        <h1 className="text-2xl font-bold">Modal Content</h1>
+        <p>Modal content goes here</p>
+      </Modal>
     </>
   );
 };
