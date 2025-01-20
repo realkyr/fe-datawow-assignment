@@ -1,0 +1,4 @@
+.dropdown-top {
+  bottom: var(--bottom);
+  top: auto; /* Reset the top position */
+}
