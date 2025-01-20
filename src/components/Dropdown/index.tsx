@@ -15,6 +15,7 @@ import { checkDropdownPosition } from '@/components/Dropdown/helper';
 
 import { DropdownProps, Option, WithBottomVariableCSS } from './types';
 import './dropdown.css';
+import CheckIcon from '@/components/Icons/CheckIcon';
 
 const Dropdown: React.FC<DropdownProps> = ({
   options,
@@ -36,6 +37,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   const id = useRef(`dropdown-${uuidv4()}`).current;
 
   const dropdownRef = useClickOutside(() => setIsOpen(false));
+  const [hoveredOption, setHoveredOption] = useState<string | null>(null);
 
   const [{ shouldDropdownTop, bottomOffset }, setDropdownPosition] = useState({
     shouldDropdownTop: false,
@@ -96,10 +98,22 @@ const Dropdown: React.FC<DropdownProps> = ({
       {filteredOptions.map((option: Option) => (
         <li
           key={option.value}
-          className="cursor-default select-none py-2 pl-3 pr-9 hover:bg-indigo-600 hover:text-white"
+          className={`cursor-default select-none py-2 pl-3 pr-9 hover:bg-indigo-600 hover:text-white relative`}
           onClick={() => handleSelect(option.value)}
+          onMouseEnter={() => setHoveredOption(option.value)} // Track hover state
+          onMouseLeave={() => setHoveredOption(null)} // Clear hover state
         >
           <span className="block truncate">{option.label}</span>
+
+          {(option.value === value || hoveredOption === option.value) && (
+            <span
+              className={`absolute inset-y-0 right-0 flex items-center pr-4 ${
+                option.value === value ? 'text-indigo-600' : 'text-white'
+              }`}
+            >
+              <CheckIcon />
+            </span>
+          )}
         </li>
       ))}
     </ul>

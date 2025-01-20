@@ -9,3 +9,5 @@ export type PropsWithError = {
 };
 
 export type WithError<T> = (T & PropsWithError) | (T & PropsWithoutError);
+
+export type BaseClassNameType = { className?: string };

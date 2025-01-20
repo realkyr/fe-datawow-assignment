@@ -1,4 +1,6 @@
 import React from 'react';
+import Spinner from '@/components/Spinner';
+import { classNames } from '@/utils';
 
 export type ButtonProps = {
   /** Button variant */
@@ -21,7 +23,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   loading = false,
   disabled = false,
-  className = '',
+  className = 'h-10 px-4',
 }) => {
   const isDisabled = disabled || loading;
 
@@ -29,7 +31,7 @@ const Button: React.FC<ButtonProps> = ({
   const baseStyles = [
     'inline-flex',
     'items-center',
-    'justify-center',
+    'gap-2',
     'rounded-md',
     'font-medium',
     'focus:outline-none',
@@ -37,13 +39,14 @@ const Button: React.FC<ButtonProps> = ({
     'focus:ring-offset-2',
     'transition-colors',
     'duration-200',
-  ].join(' ');
+  ];
 
   // Variant-specific styles
   const variantStyles = {
     primary: [
       'bg-blue-600',
       'hover:bg-blue-700',
+      isDisabled ? 'hover:!bg-blue-600' : '',
       'text-white',
       'focus:ring-blue-500',
     ],
@@ -52,17 +55,20 @@ const Button: React.FC<ButtonProps> = ({
       'border-blue-600',
       'text-blue-600',
       'hover:bg-blue-50',
+      isDisabled ? 'hover:!bg-blue-50' : '',
       'focus:ring-blue-500',
     ],
     danger: [
       'bg-red-600',
       'hover:bg-red-700',
+      isDisabled ? 'hover:!bg-red-600' : '',
       'text-white',
       'focus:ring-red-500',
     ],
-  }[variant].join(' ');
+  }[variant];
 
   // Disabled styles
+  // remove hover if disabled
   const disabledStyles = isDisabled ? 'opacity-50 cursor-not-allowed' : '';
 
   return (
@@ -70,8 +76,14 @@ const Button: React.FC<ButtonProps> = ({
       type="button"
       onClick={onClick}
       disabled={isDisabled}
-      className={`${baseStyles} ${variantStyles} ${disabledStyles} px-4 py-2 ${className}`}
+      className={classNames([
+        ...baseStyles,
+        ...variantStyles,
+        disabledStyles,
+        className,
+      ])}
     >
+      {loading && <Spinner className="h-5 w-5" />}
       {children}
     </button>
   );
