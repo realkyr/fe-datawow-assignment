@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import usePortal from '@/hooks/usePortal';
 
 import Overlay from './Overlay';
+import CloseButton from './CloseButton';
 import Button from '../Button';
 
 type ModalProps = {
@@ -57,6 +58,8 @@ const Modal: React.FC<ModalProps> = ({
         role="dialog"
         aria-modal="true"
       >
+        <CloseButton onClick={onCancel} />
+
         {/* Header */}
         {!customHeader && title ? (
           <div className="mb-4 border-b pb-2">
