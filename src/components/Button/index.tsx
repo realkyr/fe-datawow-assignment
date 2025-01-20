@@ -15,6 +15,10 @@ export type ButtonProps = {
   disabled?: boolean;
   /** Additional class names for the button */
   className?: string;
+
+  // form props
+  type?: 'button' | 'submit' | 'reset';
+  form?: string;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -24,6 +28,8 @@ const Button: React.FC<ButtonProps> = ({
   loading = false,
   disabled = false,
   className = 'h-10 px-4',
+  type = 'button',
+  form,
 }) => {
   const isDisabled = disabled || loading;
 
@@ -73,7 +79,8 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      type="button"
+      type={type}
+      form={form}
       onClick={onClick}
       disabled={isDisabled}
       className={classNames([

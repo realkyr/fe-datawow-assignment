@@ -18,6 +18,7 @@ import './dropdown.css';
 import CheckIcon from '@/components/Icons/CheckIcon';
 
 const Dropdown: React.FC<DropdownProps> = ({
+  name,
   options,
   value,
   onChange,
@@ -34,7 +35,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [searchText, setSearchText] = useState('');
   const [filteredOptions, setFilteredOptions] = useState(options);
 
-  const id = useRef(`dropdown-${uuidv4()}`).current;
+  const id = useRef(`dropdown-${name}-${uuidv4()}`).current;
 
   const dropdownRef = useClickOutside(() => setIsOpen(false));
   const [hoveredOption, setHoveredOption] = useState<string | null>(null);

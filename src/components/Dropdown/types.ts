@@ -7,6 +7,7 @@ export interface Option {
 }
 
 interface BaseDropdownProps {
+  name: string;
   options: Option[];
   value: string;
   onChange: (value: string) => void;
