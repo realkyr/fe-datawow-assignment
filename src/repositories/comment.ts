@@ -16,8 +16,7 @@ export const getCommentsByPostIdRepo = async (
 };
 
 export const createCommentRepo = async (postId: string, content: string) => {
-  return request.post<CommentResponse>('/comment', {
-    postId,
+  return request.post<CommentResponse>('/comment/' + postId, {
     content,
   });
 };

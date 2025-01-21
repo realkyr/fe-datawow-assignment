@@ -2,6 +2,8 @@ import React from 'react';
 import Avatar from '@/components/Avatar';
 import MsgBubbleIcon from '@/components/Icons/MsgBubbleIcon';
 import { PostProps } from '@/components/Post/types';
+import ActionButton from '@/components/Post/ActionButton';
+import Link from 'next/link';
 
 const CommentAmount = ({ amount }: { amount: number }) => {
   return (
@@ -18,22 +20,28 @@ const Post = ({
   content,
   topic,
   community,
+  id,
+  onDelete,
 }: PostProps) => {
   return (
-    <div className="flex flex-col gap-2 p-8">
+    <div className="flex flex-col gap-2 p-8 relative">
       <Avatar {...avatarProps} />
+
+      <ActionButton onDelete={onDelete} id={id} owner={avatarProps.name} />
 
       {/* gray pill */}
 
-      <div className="bg-gray-200 rounded-full p-2 w-max">
-        <p className="text-xs text-gray-700">{community}</p>
-      </div>
+      <Link href={`post/${id}`}>
+        <div className="bg-gray-200 rounded-full p-2 w-max">
+          <p className="text-xs text-gray-700">{community}</p>
+        </div>
 
-      <h3 className="text-lg font-semibold">{topic}</h3>
+        <h3 className="text-lg font-semibold">{topic}</h3>
 
-      <p>{content}</p>
+        <p>{content}</p>
 
-      <CommentAmount amount={commentsAmount} />
+        <CommentAmount amount={commentsAmount} />
+      </Link>
     </div>
   );
 };

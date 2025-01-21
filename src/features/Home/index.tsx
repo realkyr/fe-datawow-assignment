@@ -14,7 +14,6 @@ import { useInfiniteList } from '@/hooks/useInfiniteList';
 import useDebounceCallback from '@/hooks/useDebounceCallback';
 import { useSearchParams } from 'next/navigation';
 import useAuthentication from '@/hooks/useAuthentication';
-import Link from 'next/link';
 
 const INITIAL_QUERY: PostQuery = {
   limit: 10,
@@ -72,6 +71,12 @@ const Home = () => {
     }
   };
 
+  const onDeletePost = () => {
+    // navigate user to top of the page
+    window.scrollTo(0, 0);
+    resetListData();
+  };
+
   return (
     <div
       ref={scrollContainerRef}
@@ -110,9 +115,11 @@ const Home = () => {
 
       <div className="rounded-lg bg-white p-4 mt-4">
         {posts.map((post) => (
-          <Link href={'post/' + post.id}>
-            <Post key={post.id} {...postTypeToPropsConvert(post)} />
-          </Link>
+          <Post
+            key={post.id}
+            {...postTypeToPropsConvert(post)}
+            onDelete={onDeletePost}
+          />
         ))}
         {isLoading && <Spinner />}
       </div>

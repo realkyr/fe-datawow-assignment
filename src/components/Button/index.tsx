@@ -4,7 +4,7 @@ import { classNames } from '@/utils';
 
 export type ButtonProps = {
   /** Button variant */
-  variant?: 'primary' | 'outline' | 'danger';
+  variant?: 'primary' | 'outline' | 'danger' | 'icon';
   /** Button text or content */
   children: React.ReactNode;
   /** Optional click handler */
@@ -70,6 +70,14 @@ const Button: React.FC<ButtonProps> = ({
       isDisabled ? 'hover:!bg-red-600' : '',
       'text-white',
       'focus:ring-red-500',
+    ],
+    icon: [
+      // bg transparent no focus box shadow
+      'bg-transparent',
+      'hover:bg-transparent',
+      'focus:ring-0',
+      'p-0',
+      '!px-1',
     ],
   }[variant];
 
