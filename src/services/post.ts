@@ -1,6 +1,7 @@
 import { PostQuery, PostResponse, PostType } from '@/shared-types/post';
-import { getPostsRepository } from '@/repositories';
+import { createPostRepository, getPostsRepository } from '@/repositories';
 import { Pagination } from '@/shared-types/pagination';
+import { CreatePostForm } from '@/features/Home/_components/CreateModal/constants';
 
 const postResponseToPostType = (response: PostResponse): PostType => {
   return {
@@ -25,7 +26,6 @@ export const getPostsService = async (
       pagination: data.pagination,
     };
   } catch (error) {
-    console.log({ error });
     return {
       data: [],
       pagination: {
@@ -35,5 +35,14 @@ export const getPostsService = async (
         totalPages: 1,
       },
     };
+  }
+};
+
+export const createPostService = async (data: CreatePostForm) => {
+  try {
+    const response = await createPostRepository(data);
+    return postResponseToPostType(response.data);
+  } catch (error) {
+    throw error;
   }
 };

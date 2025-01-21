@@ -2,27 +2,21 @@
 
 import React from 'react';
 import Dropdown from '@/components/Dropdown';
+import { communityDropdown } from '@/utils/constants';
 
-const CommunityDropdown = () => {
-  const [community, setCommunity] = React.useState('');
+interface CommunityDropdownProps {
+  community: string;
+  setCommunity: (value: string) => void;
+}
 
+const CommunityDropdown = ({
+  community,
+  setCommunity,
+}: CommunityDropdownProps) => {
   return (
     <Dropdown
       name="community"
-      options={[
-        {
-          label: 'React',
-          value: 'react',
-        },
-        {
-          label: 'Vue',
-          value: 'vue',
-        },
-        {
-          label: 'Angular',
-          value: 'angular',
-        },
-      ]}
+      options={communityDropdown}
       value={community}
       onChange={setCommunity}
     />

@@ -10,7 +10,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <Navbar />
 
       {/* Main content */}
-      <div className="flex flex-row flex-grow">
+      <div className="flex flex-row flex-grow overflow-hidden">
         {/* Sidebar */}
         <Sidebar />
 

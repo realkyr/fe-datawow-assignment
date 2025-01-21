@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const useAuthentication = () => {
+  const [username, setUsername] = React.useState<string | null>(null);
+
   const login = (username: string) => {
     localStorage.setItem('username', username);
   };
@@ -17,7 +19,11 @@ const useAuthentication = () => {
     return localStorage.getItem('username');
   };
 
-  return { login, logout, isAuthenticated, getUsername };
+  useEffect(() => {
+    setUsername(getUsername());
+  }, []);
+
+  return { login, logout, isAuthenticated, getUsername, username };
 };
 
 export default useAuthentication;
