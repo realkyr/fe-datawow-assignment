@@ -1,5 +1,11 @@
 import { PostQuery, PostResponse, PostType } from '@/shared-types/post';
-import { createPostRepository, getPostsRepository } from '@/repositories';
+import {
+  createPostRepository,
+  deletePostRepository,
+  getPostDetailRepository,
+  getPostsRepository,
+  updatePostRepository,
+} from '@/repositories';
 import { Pagination } from '@/shared-types/pagination';
 import { CreatePostForm } from '@/features/Home/_components/CreateModal/constants';
 
@@ -41,6 +47,31 @@ export const getPostsService = async (
 export const createPostService = async (data: CreatePostForm) => {
   try {
     const response = await createPostRepository(data);
+    return postResponseToPostType(response.data);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updatePostService = async (id: string, data: CreatePostForm) => {
+  try {
+    const response = await updatePostRepository(id, data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deletePostService = async (id: string) => {
+  try {
+    await deletePostRepository(id);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getPostDetailService = async (id: string) => {
+  try {
+    const response = await getPostDetailRepository(id);
     return postResponseToPostType(response.data);
   } catch (error) {
     throw error;

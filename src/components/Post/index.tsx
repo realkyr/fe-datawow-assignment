@@ -12,10 +12,22 @@ const CommentAmount = ({ amount }: { amount: number }) => {
   );
 };
 
-const Post = ({ avatarProps, commentsAmount, content, topic }: PostProps) => {
+const Post = ({
+  avatarProps,
+  commentsAmount,
+  content,
+  topic,
+  community,
+}: PostProps) => {
   return (
     <div className="flex flex-col gap-2 p-8">
       <Avatar {...avatarProps} />
+
+      {/* gray pill */}
+
+      <div className="bg-gray-200 rounded-full p-2 w-max">
+        <p className="text-xs text-gray-700">{community}</p>
+      </div>
 
       <h3 className="text-lg font-semibold">{topic}</h3>
 

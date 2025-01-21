@@ -15,7 +15,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <Sidebar />
 
         {/* App Component (Main Content) */}
-        <main className="flex-grow w-full !bg-gray-app-100 overflow-hidden p-4">
+        <main className="flex-grow w-full !bg-gray-app-100 overflow-hidden">
           {children}
         </main>
       </div>
