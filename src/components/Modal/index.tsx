@@ -62,7 +62,7 @@ const Modal: React.FC<ModalProps> = ({
 
         {/* Header */}
         {!customHeader && title ? (
-          <div className="mb-4 border-b pb-2">
+          <div className="mb-4 b pb-2">
             <h2 className="text-lg font-semibold">{title}</h2>
           </div>
         ) : (

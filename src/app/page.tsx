@@ -1,10 +1,10 @@
-import Image from 'next/image';
 import MainLayout from '@/Layout/MainLayout';
+import Home from '@/features/Home';
 
-export default function Home() {
+export default function Page() {
   return (
     <MainLayout>
-      <h1>Test</h1>
+      <Home posts={[]} />
     </MainLayout>
   );
 }

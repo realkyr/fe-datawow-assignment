@@ -1,26 +1,26 @@
 import React from 'react';
-import { Field, FieldProps, Formik, Form } from 'formik';
+import { Field, FieldProps, Formik, Form, FormikValues } from 'formik';
 
 import Dropdown from '../Dropdown'; // Import your Dropdown component
 import TextField from '../TextField'; // Import your TextField component
 import TextArea from '../TextArea';
 import { FormFieldConfig } from '@/types'; // Import your TextArea component
 
-interface FormRendererProps {
+interface FormRendererProps<T> {
   id: string;
-  initialValues: { [key: string]: any };
+  initialValues: T;
   fields: FormFieldConfig[];
-  onSubmit: (values: { [key: string]: any }) => void;
+  onSubmit: (values: T) => void;
 }
 
-const FormRenderer: React.FC<FormRendererProps> = ({
+const FormRenderer = <T extends FormikValues>({
   id,
   initialValues,
   fields,
   onSubmit,
-}) => {
+}: FormRendererProps<T>) => {
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik<T> initialValues={initialValues} onSubmit={onSubmit}>
       {({ errors, touched }) => (
         <Form id={id} className="space-y-4">
           {fields.map((field) => (

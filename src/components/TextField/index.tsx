@@ -1,3 +1,4 @@
+'use client';
 import React, { useRef } from 'react';
 import Label from '../Label';
 import { TextFieldProps } from './types';
@@ -18,7 +19,7 @@ const TextField: React.FC<TextFieldProps> = ({
   return (
     <div ref={inputRef}>
       <Label name={name} label={label} error={error} />
-      <div className="relative mt-2 rounded-md shadow-sm">
+      <div className="relative rounded-md shadow-sm">
         {prefix && (
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <span className="text-gray-500 sm:text-sm">{prefix}</span>
@@ -36,7 +37,7 @@ const TextField: React.FC<TextFieldProps> = ({
             error
               ? 'ring-2 ring-red-500 focus:ring-2 focus:ring-inset focus:ring-red-500'
               : 'focus:ring-indigo-600'
-          }`}
+          } ${prefix ? 'pl-10' : 'pl-3'}`}
         />
       </div>
 

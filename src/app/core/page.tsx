@@ -11,7 +11,7 @@ import Drawer from '@/components/Drawer';
 import Avatar from '@/components/Avatar';
 import dayjs from 'dayjs';
 import Post from '@/components/Post';
-import { postTypeToPropsConvert } from '@/utils/convertor';
+import { postResponseToPropsConvert } from '@/utils/convertor';
 
 const fields: FormFieldConfig[] = [
   {
@@ -135,7 +135,7 @@ const Page = () => {
 
       <h1 className="text-2xl font-bold">Post</h1>
 
-      <Post {...postTypeToPropsConvert(EXAMPLE_POST)} />
+      <Post {...postResponseToPropsConvert(EXAMPLE_POST)} />
     </>
   );
 };

@@ -133,7 +133,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           </label>
         )}
 
-        <div className="relative mt-2">
+        <div className="relative">
           {allowSearch ? (
             <TextField
               placeholder={placeholder}
