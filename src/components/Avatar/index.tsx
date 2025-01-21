@@ -13,7 +13,7 @@ export interface AvatarProps {
 
 const Avatar: React.FC<AvatarProps> = ({
   image,
-  namePosition,
+  namePosition = 'right',
   name,
   lastActive,
 }) => {
