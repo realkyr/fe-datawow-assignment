@@ -7,6 +7,11 @@ import Modal from '@/components/Modal';
 import TextArea from '@/components/TextArea';
 import { FormFieldConfig } from '@/types';
 import FormRenderer from '@/components/FormRenderer';
+import Drawer from '@/components/Drawer';
+import Avatar from '@/components/Avatar';
+import dayjs from 'dayjs';
+import Post from '@/components/Post';
+import { postTypeToPropsConvert } from '@/utils/convertor';
 
 const fields: FormFieldConfig[] = [
   {
@@ -39,6 +44,17 @@ const fields: FormFieldConfig[] = [
     validate: (value) => (!value ? 'Country is required' : undefined),
   },
 ];
+
+const EXAMPLE_POST = {
+  id: '4P85Dvr7nskYQg2j3eNh',
+  content: 'lorem ipsum dora the explorer',
+  topic: 'test 3',
+  community: 'history',
+  createdBy: 'realkyr',
+  createdAt: '2025-01-21T20:14:38+07:00',
+  updatedAt: '2025-01-21T20:14:38+07:00',
+  commentsAmount: 2,
+};
 
 const Page = () => {
   const [dropdownValue, setDropdownValue] = React.useState('option1');
@@ -102,6 +118,24 @@ const Page = () => {
       <Button form="form" type="submit">
         Submit
       </Button>
+
+      <h1 className="text-2xl font-bold">Drawer</h1>
+
+      <Drawer />
+
+      <h1 className="text-2xl font-bold">Avatar</h1>
+      <Avatar
+        image="https://via.placeholder.com/150"
+        name="Zach"
+        lastActive={dayjs().subtract(1, 'hour').toDate()}
+      />
+
+      {/* Avatar with Fallback Icon */}
+      <Avatar name="John" lastActive={dayjs().subtract(2, 'month').toDate()} />
+
+      <h1 className="text-2xl font-bold">Post</h1>
+
+      <Post {...postTypeToPropsConvert(EXAMPLE_POST)} />
     </>
   );
 };
