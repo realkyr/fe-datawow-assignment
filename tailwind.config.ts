@@ -14,6 +14,7 @@ export default {
         foreground: 'var(--foreground)',
         'dark-green': '#243831',
         'gray-app-100': '#BBC2C0',
+        'green-app': '#2B5F44',
       },
     },
   },
