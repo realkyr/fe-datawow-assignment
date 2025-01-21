@@ -8,9 +8,13 @@ import {
   createPostField,
   CreatePostForm,
 } from '@/features/Home/_components/CreateModal/constants';
+import { useRouter } from 'next/navigation';
+import useAuthentication from '@/hooks/useAuthentication';
 
 const CreateModal = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { isAuthenticated } = useAuthentication();
+  const router = useRouter();
 
   const handleSubmit = (values: CreatePostForm) => {
     console.log(values);
@@ -18,7 +22,16 @@ const CreateModal = () => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)} className="h-10 px-4 w-full">
+      <Button
+        onClick={() => {
+          if (isAuthenticated()) {
+            setIsOpen(true);
+          } else {
+            router.push('/signin');
+          }
+        }}
+        className="h-10 px-4 w-full"
+      >
         Create
       </Button>
 

@@ -32,7 +32,7 @@ const Home = ({ posts }: HomeProps) => {
 
       <div className="rounded-lg bg-white p-4 mt-4">
         {posts.map((post) => (
-          <Post {...postTypeToPropsConvert(post)} />
+          <Post key={post.id} {...postTypeToPropsConvert(post)} />
         ))}
       </div>
     </>

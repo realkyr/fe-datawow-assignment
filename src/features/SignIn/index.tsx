@@ -1,5 +1,6 @@
 import TextField from '@/components/TextField';
 import Button from '@/components/Button';
+import SignInButton from '@/features/SignIn/_components/SignInButton';
 
 const SignIn = () => {
   return (
@@ -21,10 +22,7 @@ const SignIn = () => {
         <div className="flex items-center justify-center p-8">
           <form className="w-full max-w-sm space-y-4">
             <h2 className="text-white text-xl font-bold">Sign in</h2>
-            <TextField name="username" placeholder="Username" />
-            <Button className="h-10 px-4 w-full flex justify-center">
-              Sign In
-            </Button>
+            <SignInButton />
           </form>
         </div>
       </div>
