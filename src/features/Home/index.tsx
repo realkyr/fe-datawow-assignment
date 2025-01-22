@@ -59,7 +59,7 @@ const Home = () => {
 
   const [updateQueryDebounce] = useDebounceCallback(updateQuery, 500);
 
-  const onCreatePost = () => {
+  const onCreatePost = async () => {
     // navigate user to top of the page
     window.scrollTo(0, 0);
     resetListData();
@@ -90,7 +90,7 @@ const Home = () => {
     <div
       ref={scrollContainerRef}
       onScroll={handleScroll}
-      className="h-screen overflow-auto"
+      className="h-screen p-0 md:p-2 w-full md:w-[90%] overflow-auto"
     >
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-8">

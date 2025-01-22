@@ -19,7 +19,7 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className="!bg-gray-app-100 h-[calc(100vh-64px)] w-64 p-4">
+    <div className="!bg-gray-app-100 h-[calc(100vh-64px)] hidden md:block w-64 p-4">
       <MenuItem
         icon="🏠"
         label="Home"
