@@ -1,4 +1,6 @@
 import SignInButton from '@/features/SignIn/_components/SignInButton';
+import logo from '@/app/assets/images/logo.png';
+import Image from 'next/image';
 
 const SignIn = () => {
   return (
@@ -7,12 +9,21 @@ const SignIn = () => {
         {/* Image Section */}
         <div className="flex items-center justify-center bg-green-app p-8 md:order-2 rounded-br-2xl md:rounded-br-none rounded-bl-2xl md:rounded-tl-2xl md:rounded-bl-2xl">
           <div className="text-center">
-            <img
-              src="https://via.placeholder.com/200" // Placeholder image
-              alt="Placeholder"
-              className="mx-auto mb-4"
+            <Image
+              className="mx-auto mb-4 hidden md:block"
+              src={logo}
+              alt={'logo'}
+              width={300}
             />
-            <p className="text-white text-lg font-semibold">a Board</p>
+            <Image
+              className="mx-auto mb-4 block md:hidden"
+              src={logo}
+              alt={'logo'}
+              width={190}
+            />
+            <p className="text-white text-xl font-semibold italic font-castoro">
+              a Board
+            </p>
           </div>
         </div>
 

@@ -50,15 +50,15 @@ const Button: React.FC<ButtonProps> = ({
   // Variant-specific styles
   const variantStyles = {
     primary: [
-      'bg-blue-600',
-      'hover:bg-blue-700',
-      isDisabled ? 'hover:!bg-blue-600' : '',
+      'bg-success',
+      'hover:bg-green-700',
+      isDisabled ? 'hover:!bg-green-700' : '',
       'text-white',
       'focus:ring-blue-500',
     ],
     outline: [
       'border',
-      'border-blue-600',
+      'border-success',
       'text-blue-600',
       'hover:bg-blue-50',
       isDisabled ? 'hover:!bg-blue-50' : '',
