@@ -3,6 +3,9 @@ import React from 'react';
 import Button from '@/components/Button';
 import TextArea from '@/components/TextArea';
 import { createCommentService } from '@/services/comment';
+import Modal from '@/components/Modal';
+import AppCustomFooter from '@/components/AppCustomFooter';
+import useClientViewport from '@/hooks/useClientViewport';
 
 interface CreateCommentProps {
   onAddComment: () => Promise<void>;
@@ -24,6 +27,17 @@ const CreateComment = ({ onAddComment, postId }: CreateCommentProps) => {
     setCommentMode(false);
   };
 
+  const [shouldShowModal, setShouldShowModal] = React.useState(false);
+  const { clientWidth, clientHeight } = useClientViewport();
+
+  React.useEffect(() => {
+    if (clientWidth < 768) {
+      setShouldShowModal(true);
+    } else {
+      setShouldShowModal(false);
+    }
+  }, [clientWidth]);
+
   const commentForm = (
     <>
       <TextArea
@@ -31,24 +45,52 @@ const CreateComment = ({ onAddComment, postId }: CreateCommentProps) => {
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       />
-
-      <div className="flex justify-end">
-        <Button onClick={() => setCommentMode(false)}>Cancel</Button>
-        <Button loading={isLoading} onClick={() => handleSubmit()}>
-          Save
-        </Button>
-      </div>
     </>
   );
 
   return (
     <>
-      {commentMode ? (
-        commentForm
+      {commentMode && !shouldShowModal ? (
+        <>
+          {commentForm}
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" onClick={() => setCommentMode(false)}>
+              Cancel
+            </Button>
+            <Button loading={isLoading} onClick={() => handleSubmit()}>
+              Save
+            </Button>
+          </div>{' '}
+        </>
       ) : (
-        <Button variant="outline" onClick={() => setCommentMode(true)}>
-          Add Comment
-        </Button>
+        <div className="ml-8">
+          <Button variant="outline" onClick={() => setCommentMode(true)}>
+            Add Comment
+          </Button>
+        </div>
+      )}
+
+      {shouldShowModal && (
+        <Modal
+          isOpen={commentMode}
+          onCancel={() => setCommentMode(false)}
+          title="Add Comment"
+          customFooter={
+            <AppCustomFooter
+              cancelButtonProps={{
+                variant: 'outline',
+                onClick: () => setCommentMode(false),
+              }}
+              confirmButtonProps={{
+                loading: isLoading,
+                form: 'create-post',
+                type: 'submit',
+              }}
+            />
+          }
+        >
+          {commentForm}
+        </Modal>
       )}
     </>
   );

@@ -38,6 +38,7 @@ const Home = () => {
     loadNextPage,
     updateQuery,
     query,
+    clearCache,
   } = useInfiniteList({
     fetcherKey: 'getPostsService',
     initialQuery: INITIAL_QUERY,
@@ -52,6 +53,7 @@ const Home = () => {
   const mode = searchParams.get('mode');
   useEffect(() => {
     window.scrollTo(0, 0);
+    clearCache();
     if (mode === 'my-block' && username) {
       updateQuery({ createdBy: username });
     }
@@ -160,7 +162,7 @@ const Home = () => {
 
       <div className="rounded-lg bg-white p-4 mt-4">
         {posts.map((post, i) => (
-          <>
+          <React.Fragment key={post.id}>
             <Post
               key={post.id}
               {...postTypeToPropsConvert(post)}
@@ -173,7 +175,7 @@ const Home = () => {
 
             {/* divider */}
             {i !== posts.length - 1 && <hr className="my-4" />}
-          </>
+          </React.Fragment>
         ))}
         {isLoading && <Spinner />}
       </div>

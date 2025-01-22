@@ -14,6 +14,10 @@ const CommentAmount = ({ amount }: { amount: number }) => {
   );
 };
 
+const firstCapital = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 const Post = ({
   avatarProps,
   commentsAmount,
@@ -39,12 +43,12 @@ const Post = ({
 
       <Link href={`post/${id}`}>
         <div className="bg-gray-200 rounded-full p-2 w-max">
-          <p className="text-xs text-gray-700">{community}</p>
+          <p className="text-xs text-gray-700">{firstCapital(community)}</p>
         </div>
 
-        <h3 className="text-lg font-semibold">{topic}</h3>
+        <h3 className="text-lg font-semibold mt-2">{topic}</h3>
 
-        <p>{content}</p>
+        <p className="mb-2">{content}</p>
 
         <CommentAmount amount={commentsAmount} />
       </Link>
