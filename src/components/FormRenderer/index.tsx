@@ -1,5 +1,13 @@
-import React from 'react';
-import { Field, FieldProps, Formik, Form, FormikValues } from 'formik';
+import React, { useEffect } from 'react';
+import {
+  Field,
+  FieldProps,
+  Formik,
+  Form,
+  FormikValues,
+  FormikConfig,
+  FormikProps,
+} from 'formik';
 
 import Dropdown from '../Dropdown'; // Import your Dropdown component
 import TextField from '../TextField'; // Import your TextField component
@@ -19,8 +27,18 @@ const FormRenderer = <T extends FormikValues>({
   fields,
   onSubmit,
 }: FormRendererProps<T>) => {
+  const formRef = React.useRef<FormikProps<T>>(null);
+
+  useEffect(() => {
+    formRef.current?.setValues(initialValues);
+  }, [initialValues]);
+
   return (
-    <Formik<T> initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik<T>
+      innerRef={formRef}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+    >
       {({ errors, touched }) => (
         <Form id={id} className="space-y-4">
           {fields.map((field) => (

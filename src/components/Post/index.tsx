@@ -22,12 +22,18 @@ const Post = ({
   community,
   id,
   onDelete,
+  onEdit,
 }: PostProps) => {
   return (
     <div className="flex flex-col gap-2 p-8 relative">
       <Avatar {...avatarProps} />
 
-      <ActionButton onDelete={onDelete} id={id} owner={avatarProps.name} />
+      <ActionButton
+        onClickEdit={onEdit}
+        onDelete={onDelete}
+        id={id}
+        owner={avatarProps.name}
+      />
 
       {/* gray pill */}
 

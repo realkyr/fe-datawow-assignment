@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@/components/Button';
 import Modal from '@/components/Modal';
 import FormRenderer from '@/components/FormRenderer';
@@ -11,14 +11,23 @@ import {
 import { useRouter } from 'next/navigation';
 import useAuthentication from '@/hooks/useAuthentication';
 import AppCustomFooter from '@/components/AppCustomFooter';
-import { createPostService } from '@/services/post';
+import { createPostService, updatePostService } from '@/services/post';
 
 interface CreateModalProps {
-  onCreate: () => void;
+  onCreate: () => Promise<void>;
+  defaultValue: CreatePostForm;
+  setDefaultValue: (value: CreatePostForm) => void;
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
 }
 
-const CreateModal = ({ onCreate }: CreateModalProps) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+const CreateModal = ({
+  onCreate,
+  defaultValue,
+  setDefaultValue,
+  isOpen,
+  setIsOpen,
+}: CreateModalProps) => {
   const { isAuthenticated } = useAuthentication();
   const router = useRouter();
 
@@ -27,8 +36,10 @@ const CreateModal = ({ onCreate }: CreateModalProps) => {
   const handleSubmit = async (values: CreatePostForm) => {
     setIsLoading(true);
     try {
-      await createPostService(values);
-      onCreate();
+      if (defaultValue?.id) {
+        await updatePostService(defaultValue.id, values);
+      } else await createPostService(values);
+      await onCreate();
       setIsLoading(false);
       setIsOpen(false);
     } catch (error) {
@@ -42,6 +53,7 @@ const CreateModal = ({ onCreate }: CreateModalProps) => {
       <Button
         onClick={() => {
           if (isAuthenticated()) {
+            setDefaultValue(createPostDefaultValue);
             setIsOpen(true);
           } else {
             router.push('/signin');
@@ -72,7 +84,7 @@ const CreateModal = ({ onCreate }: CreateModalProps) => {
         <div tw="p-4">
           <FormRenderer
             id="create-post"
-            initialValues={createPostDefaultValue}
+            initialValues={defaultValue || { ...createPostDefaultValue }}
             fields={createPostField}
             onSubmit={handleSubmit}
           />

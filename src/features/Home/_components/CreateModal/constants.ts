@@ -6,9 +6,12 @@ export interface CreatePostForm
   extends Omit<
     PostResponse,
     'id' | 'createdAt' | 'updatedAt' | 'createdBy' | 'commentsAmount'
-  > {}
+  > {
+  id?: string;
+}
 
 export const createPostDefaultValue: CreatePostForm = {
+  id: '',
   topic: '',
   content: '',
   community: '',

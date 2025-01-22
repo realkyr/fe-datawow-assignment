@@ -14,6 +14,10 @@ import { useInfiniteList } from '@/hooks/useInfiniteList';
 import useDebounceCallback from '@/hooks/useDebounceCallback';
 import { useSearchParams } from 'next/navigation';
 import useAuthentication from '@/hooks/useAuthentication';
+import {
+  createPostDefaultValue,
+  CreatePostForm,
+} from '@/features/Home/_components/CreateModal/constants';
 
 const INITIAL_QUERY: PostQuery = {
   limit: 10,
@@ -37,6 +41,11 @@ const Home = () => {
     initialQuery: INITIAL_QUERY,
     fetcher: getPostsService,
   });
+
+  const [defaulValue, setDefaultValue] = React.useState<CreatePostForm>(
+    createPostDefaultValue
+  );
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const mode = searchParams.get('mode');
   useEffect(() => {
@@ -109,7 +118,13 @@ const Home = () => {
         </div>
 
         <div className="col-span-2">
-          <CreateModal onCreate={onCreatePost} />
+          <CreateModal
+            defaultValue={defaulValue}
+            setDefaultValue={setDefaultValue}
+            isOpen={isModalOpen}
+            setIsOpen={setIsModalOpen}
+            onCreate={onCreatePost}
+          />
         </div>
       </div>
 
@@ -119,6 +134,10 @@ const Home = () => {
             key={post.id}
             {...postTypeToPropsConvert(post)}
             onDelete={onDeletePost}
+            onEdit={() => {
+              setDefaultValue(post);
+              setIsModalOpen(true);
+            }}
           />
         ))}
         {isLoading && <Spinner />}
