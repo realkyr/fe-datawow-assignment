@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 const useAuthentication = () => {
   const [username, setUsername] = React.useState<string | null>(null);
+  const [isFinished, setIsFinished] = React.useState(false);
 
   const login = (username: string) => {
     localStorage.setItem('username', username);
@@ -20,7 +21,7 @@ const useAuthentication = () => {
   };
 
   useEffect(() => {
-    setUsername(getUsername());
+    setUsername(getUsername() || '');
   }, []);
 
   return { login, logout, isAuthenticated, getUsername, username };

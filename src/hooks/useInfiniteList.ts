@@ -1,6 +1,7 @@
 import React from 'react';
 import useSWR from 'swr';
 import { Pagination } from '@/shared-types/pagination';
+import dayjs from 'dayjs';
 
 interface UseInfiniteListProps<T, Q> {
   fetcherKey: string; // SWR key
@@ -13,6 +14,7 @@ export const useInfiniteList = <T, Q>({
   initialQuery,
   fetcher,
 }: UseInfiniteListProps<T, Q>) => {
+  const [random, setRandom] = React.useState(0);
   const [query, setQuery] = React.useState<Q>(initialQuery);
   const [pagination, setPagination] = React.useState<Pagination>({
     total: 0,
@@ -22,21 +24,28 @@ export const useInfiniteList = <T, Q>({
   });
   const [listData, setListData] = React.useState<T[][]>([]);
 
-  const { isLoading, mutate } = useSWR([fetcherKey, query], async () => {
-    const { data, pagination } = await fetcher(query);
-    setPagination(pagination);
-    setListData((prev) => {
-      const newData = [...prev];
-      newData[pagination.page - 1] = data; // Organize data by page
+  const { isLoading, mutate } = useSWR(
+    [fetcherKey, query, random],
+    async () => {
+      const { data, pagination } = await fetcher(query);
+      setPagination(pagination);
+      setListData((prev) => {
+        const newData = [...prev];
+        newData[pagination.page - 1] = data; // Organize data by page
 
-      if (pagination.page === 1) {
-        // remove page 2 and above data when fetching page 1 since it's a new query
-        newData.splice(1);
-      }
+        if (pagination.page === 1) {
+          // remove page 2 and above data when fetching page 1 since it's a new query
+          newData.splice(1);
+        }
 
-      return newData;
-    });
-  });
+        return newData;
+      });
+    }
+  );
+
+  const clearCache = () => {
+    setRandom(dayjs().toDate().getTime());
+  };
 
   // Flattened list for easier rendering
   const items = listData.flat();
@@ -70,5 +79,6 @@ export const useInfiniteList = <T, Q>({
     updateQuery,
     resetListData,
     loadNextPage,
+    clearCache,
   };
 };

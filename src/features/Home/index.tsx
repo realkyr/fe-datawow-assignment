@@ -54,7 +54,10 @@ const Home = () => {
     window.scrollTo(0, 0);
     if (mode === 'my-block' && username) {
       updateQuery({ createdBy: username });
-    } else {
+    }
+
+    // only call when finish fetch user data
+    if (typeof username === 'string' && mode !== 'my-block') {
       updateQuery({ createdBy: undefined });
     }
   }, [mode, username]);
@@ -93,7 +96,7 @@ const Home = () => {
     <div
       ref={scrollContainerRef}
       onScroll={handleScroll}
-      className="h-screen p-0 md:p-2 w-full md:w-[90%] overflow-auto"
+      className="h-screen p-2 w-full md:w-[90%] overflow-auto"
     >
       <div className="grid grid-cols-12 gap-4 pt-8">
         <div
@@ -156,16 +159,21 @@ const Home = () => {
       </div>
 
       <div className="rounded-lg bg-white p-4 mt-4">
-        {posts.map((post) => (
-          <Post
-            key={post.id}
-            {...postTypeToPropsConvert(post)}
-            onDelete={onDeletePost}
-            onEdit={() => {
-              setDefaultValue(post);
-              setIsModalOpen(true);
-            }}
-          />
+        {posts.map((post, i) => (
+          <>
+            <Post
+              key={post.id}
+              {...postTypeToPropsConvert(post)}
+              onDelete={onDeletePost}
+              onEdit={() => {
+                setDefaultValue(post);
+                setIsModalOpen(true);
+              }}
+            />
+
+            {/* divider */}
+            {i !== posts.length - 1 && <hr className="my-4" />}
+          </>
         ))}
         {isLoading && <Spinner />}
       </div>
