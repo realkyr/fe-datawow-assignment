@@ -13,11 +13,17 @@ const AppCustomFooter = ({
   confirmButtonProps,
 }: FooterProps) => {
   return (
-    <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row md:space-x-4 justify-center">
-      <Button className="px-4 py-2 rounded-md" {...cancelButtonProps}>
+    <div className="flex flex-col  space-y-2 md:space-y-0 md:flex-row md:space-x-4 justify-end">
+      <Button
+        className="px-4 py-2 rounded-md justify-center"
+        {...cancelButtonProps}
+      >
         Cancel
       </Button>
-      <Button className="px-4 py-2 rounded-md" {...confirmButtonProps}>
+      <Button
+        className="px-4 py-2 rounded-md justify-center"
+        {...confirmButtonProps}
+      >
         Confirm
       </Button>
     </div>

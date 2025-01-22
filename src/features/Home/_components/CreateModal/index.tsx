@@ -59,9 +59,9 @@ const CreateModal = ({
             router.push('/signin');
           }
         }}
-        className="h-10 px-4 w-full"
+        className="h-9 px-4 w-full flex justify-center"
       >
-        Create
+        Create +
       </Button>
 
       <Modal
@@ -71,6 +71,7 @@ const CreateModal = ({
         customFooter={
           <AppCustomFooter
             cancelButtonProps={{
+              variant: 'outline',
               onClick: () => setIsOpen(false),
             }}
             confirmButtonProps={{

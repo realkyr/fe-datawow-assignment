@@ -1,6 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { classNames } from '@/utils';
 
 dayjs.extend(relativeTime);
 
@@ -9,6 +10,7 @@ export interface AvatarProps {
   name: string; // User's name
   lastActive?: Date | string; // Last active time
   namePosition?: 'left' | 'right'; // Position of the name
+  nameClassName?: string; // Classname for the name
 }
 
 const Avatar: React.FC<AvatarProps> = ({
@@ -16,12 +18,20 @@ const Avatar: React.FC<AvatarProps> = ({
   namePosition = 'right',
   name,
   lastActive,
+  nameClassName,
 }) => {
   const relativeTime = lastActive ? dayjs(lastActive).fromNow() : 'N/A';
 
   const nameComponent = (
     <div className="flex items-center space-x-2">
-      <p className="text-sm font-medium text-gray-800">{name}</p>
+      <p
+        className={classNames([
+          'text-sm font-medium text-gray-800',
+          nameClassName,
+        ])}
+      >
+        {name}
+      </p>
       {lastActive && <p className="text-xs text-gray-500">{relativeTime}</p>}
     </div>
   );

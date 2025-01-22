@@ -15,6 +15,7 @@ interface BaseDropdownProps {
   allowSearch?: boolean;
   label?: string;
   width?: string | number;
+  className?: string;
 }
 
 export type DropdownProps = WithError<BaseDropdownProps>;

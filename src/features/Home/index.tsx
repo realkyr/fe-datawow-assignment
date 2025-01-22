@@ -18,6 +18,8 @@ import {
   createPostDefaultValue,
   CreatePostForm,
 } from '@/features/Home/_components/CreateModal/constants';
+import SearchIcon from '@/components/Icons/SearchIcon';
+import { classNames } from '@/utils';
 
 const INITIAL_QUERY: PostQuery = {
   limit: 10,
@@ -42,7 +44,7 @@ const Home = () => {
     fetcher: getPostsService,
   });
 
-  const [defaulValue, setDefaultValue] = React.useState<CreatePostForm>(
+  const [defaultValue, setDefaultValue] = React.useState<CreatePostForm>(
     createPostDefaultValue
   );
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -85,6 +87,7 @@ const Home = () => {
     window.scrollTo(0, 0);
     resetListData();
   };
+  const [focusInput, setFocusInput] = React.useState<string | null>(null);
 
   return (
     <div
@@ -92,8 +95,14 @@ const Home = () => {
       onScroll={handleScroll}
       className="h-screen p-0 md:p-2 w-full md:w-[90%] overflow-auto"
     >
-      <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-8">
+      <div className="grid grid-cols-12 gap-4 pt-8">
+        <div
+          className={classNames({
+            'md:!col-span-8': true,
+            'col-span-12': focusInput === 'search',
+            'col-span-4': !focusInput,
+          })}
+        >
           <TextField
             onChange={(e) => {
               if (e.target.value.length > 2)
@@ -102,13 +111,26 @@ const Home = () => {
               if (e.target.value.length === 0)
                 updateQueryDebounce({ query: undefined });
             }}
+            onFocus={() => setFocusInput('search')}
+            onBlur={() => setFocusInput(null)}
+            innerClassName="bg-gray-app-100 focus:ring-green-900 border-green-app-100"
             name="search"
             placeholder="Search"
-            prefix="😀"
+            prefix={
+              <SearchIcon
+                className="h-5 w-5 text-gray-400"
+                aria-hidden="true"
+              />
+            }
           />
         </div>
 
-        <div className="col-span-2">
+        <div
+          className={classNames({
+            'col-span-4 md:col-span-2 md:!grid': true,
+            hidden: focusInput === 'search',
+          })}
+        >
           <CommunityDropdown
             community={query.community || ''}
             setCommunity={(value) => {
@@ -117,9 +139,14 @@ const Home = () => {
           />
         </div>
 
-        <div className="col-span-2">
+        <div
+          className={classNames({
+            'col-span-4 md:col-span-2 md:!grid': true,
+            hidden: focusInput === 'search',
+          })}
+        >
           <CreateModal
-            defaultValue={defaulValue}
+            defaultValue={defaultValue}
             setDefaultValue={setDefaultValue}
             isOpen={isModalOpen}
             setIsOpen={setIsModalOpen}

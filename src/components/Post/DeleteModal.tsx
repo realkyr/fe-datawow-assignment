@@ -26,8 +26,12 @@ const DeleteModal = ({
   return (
     <Modal
       customFooter={
-        <div className="flex justify-end gap-2 mt-4">
-          <Button onClick={() => setOpen(false)} variant="primary">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+          <Button
+            onClick={() => setOpen(false)}
+            variant="outline"
+            className="border-[#DADADA] text-[#5B5B5B] px-4"
+          >
             Cancel
           </Button>
 

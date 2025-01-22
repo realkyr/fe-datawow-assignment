@@ -28,7 +28,9 @@ const LoginProfile = () => {
       </Button>
     );
 
-  return <Avatar namePosition="left" name={username} />;
+  return (
+    <Avatar namePosition="left" nameClassName="text-white" name={username} />
+  );
 };
 
 export default LoginProfile;

@@ -16,9 +16,11 @@ const CommunityDropdown = ({
   return (
     <Dropdown
       name="community"
+      placeholder="Community"
       options={communityDropdown}
       value={community}
       onChange={setCommunity}
+      className="!border-none !bg-transparent !shadow-none ring-0 text-center"
     />
   );
 };

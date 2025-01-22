@@ -27,7 +27,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   loading = false,
   disabled = false,
-  className = 'h-10 px-4',
+  className = 'h-9 px-4',
   type = 'button',
   form,
 }) => {
@@ -36,6 +36,7 @@ const Button: React.FC<ButtonProps> = ({
   // Common base styles
   const baseStyles = [
     'inline-flex',
+    'justify-center',
     'items-center',
     'gap-2',
     'rounded-md',
@@ -59,10 +60,10 @@ const Button: React.FC<ButtonProps> = ({
     outline: [
       'border',
       'border-success',
-      'text-blue-600',
-      'hover:bg-blue-50',
-      isDisabled ? 'hover:!bg-blue-50' : '',
-      'focus:ring-blue-500',
+      'text-success',
+      'hover:bg-green-50',
+      isDisabled ? 'hover:!bg-green-50' : '',
+      'focus:ring-green-500',
     ],
     danger: [
       'bg-red-600',
